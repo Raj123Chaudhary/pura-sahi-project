@@ -1,0 +1,321 @@
+#include <stdio.h>
+#include<stdlib.h>
+ void sum(int a[][4],char ch,int *p,int dow,int z);
+ void even(int a[][4],char ch,int up,int *p,int z);
+void odd(int a[][4],char ch,int up,int *p,int z);
+void f1(int a[][4],char ch,int *p,int dow,int z);
+
+
+int main()
+{
+     char name[20];
+      char ch1=121;
+     int i,j;
+     char winmat[4][4]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,'\0'};
+     printf("Player Name : ");
+     fgets(name,20,stdin);
+     printf("\n\t\t RULE OF THIS GAME");
+     printf("\n1.You can move only 1 step at a time by arrow key\n");
+     printf("MOve up : by up arrow key\n");
+     printf("move down : by down arrow key\n");
+     printf("move left : by left arrow key\n");
+     printf("move right : by right arrow key\n");
+     printf("2.You can move number at empty position only\n");
+     printf("\n");
+     printf("3.for each valid move : your total no ove will deceresd by 1");
+     printf("\n4.Wining situation : number in a 4*4 matrix shoud be in order from 1 to 15 \n");
+     printf("\n\n\t winning situation\n");
+     for(i=0;i<4;i++)
+     {
+         for(j=0;j<4;j++)
+         {
+             if(i==3&&j==3)
+            {
+              printf("%c\t",winmat[i][j]);
+            }
+            else
+            printf("%d\t",winmat[i][j]);
+          }
+           printf("\n");
+      }
+      printf("\n5.You can exit game at anytime by pressing 'e' or 'E'\n");
+      printf("so try to win in minimum no of move ");
+      printf("\n\t HAPPY GAMING , GOOD LUCK ");
+      printf("\n Enter any key to start... \n");
+      getch();
+
+      system("cls");
+
+
+      printf("  Hello %s",name);
+   while(ch1==121)
+{
+    int up=3,dow=3;
+    int count=20;
+    char str;
+    char ch=' ';
+
+    int a[4][4]={5,8,6,9,14,13,3,1,2,7,15,4,12,11,10, };
+    printf("Number of move you have=%d\n",count);
+    for(i=0;i<4;i++)
+    {
+         for(j=0;j<4;j++)
+        {
+             if(i==3&&j==3)
+            printf("%c\t",ch);
+           else
+             printf("%d\t",a[i][j]);
+        }
+           printf("\n");
+    }
+
+
+       while(count>=1)
+
+      {
+          str=getch();
+          if(str=='e'||str=='E')
+            exit(0);
+            else
+
+              switch(str)
+         {
+           case 72:
+           f1(a,ch,&up,dow,count-1);
+            count--;
+           break;
+           case 80:
+           sum(a,ch,&up,dow,count-1);
+           count--;
+           break;
+           case 75:
+           even(a,ch,up,&dow,count-1);
+           count--;
+           break;
+           case 77:
+           odd(a,ch,up,&dow,count-1);
+           count--;
+
+
+
+         }
+         if(count==0)
+            break;
+      }
+
+          printf("\t you lose\n");
+          printf("Want to play again\nEnter 'y' To play again");
+          ch1=getch();
+          system("cls");
+}
+
+ return 0;
+    }
+
+
+
+
+void f1(int a[][4],char ch,int *p,int dow,int z)
+    {
+
+        if(*p-1>=0)
+        {
+           system("cls");
+              int i,x,j,m,count=1;
+            printf("Number of move you have=%d\n",z);
+          x=a[*p-1][dow];
+         for(i=0;i<4;i++)
+         {
+             for(j=0;j<4;j++)
+             {
+                 if((i==*p-1)&&(j==dow))
+                    printf("%c\t",ch);
+                 else
+                 {
+                     if(i==*p&&j==dow)
+                     {
+                             m=a[*p][dow];
+                              printf("%d\t",x);
+                     }
+
+                     else
+                       printf("%d\t",a[i][j]);
+                 }
+              }
+
+             printf("\n");
+         }
+
+         a[*p-1][dow]=ch;
+         a[*p][dow]=x;
+            *p=*p-1;
+            for(i=0;i<4;i++)
+            {
+                for(j=0;j<4;j++)
+              {
+                if(a[i][j]==count)
+                    count++;else
+                    break;
+               }
+               if(a[i][j]!=count)
+                break;
+            }
+            if(count==16)
+            {
+                printf("\n   congras You win");
+                exit(0);
+            }
+
+    }else
+    printf("Number of move you have=%d\n",z);
+
+    }
+    void sum(int a[][4],char ch,int *p,int dow,int z)
+    {
+
+
+        if(*p+1<4)
+     {
+         system("cls");
+             int i,x,j,count=1;
+  printf("Number of move you have=%d\n",z);
+
+         x=a[*p+1][dow];
+         for(i=0;i<4;i++)
+         {
+             for(j=0;j<4;j++)
+             {
+                 if((i==*p+1)&&(j==dow))
+                    printf("%c\t",ch);
+                 else
+                 {
+                     if(i==*p&&j==dow)
+                        printf("%d\t",x);
+                     else
+                        printf("%d\t",a[i][j]);
+                 }
+
+             }
+             printf("\n");
+         }
+           a[*p+1][dow]=ch;
+         a[*p][dow]=x;
+
+         *p=*p+1;
+           for(i=0;i<4;i++)
+            {
+                for(j=0;j<4;j++)
+              {
+                if(a[i][j]==count)
+                    count++;else
+                    break;
+               }
+               if(a[i][j]!=count)
+                break;
+            }
+            if(count==16)
+            {
+                printf("\n   congras You win");
+                exit(0);
+            }
+
+     }else
+
+printf("Number of move you have=%d\n",z);
+
+}
+void even(int a[][4],char ch,int up,int *p,int z)
+{
+
+    if(*p-1>=0){
+          system("cls");
+    int i,x,j,count=1;
+ printf("Number of move you have=%d\n",z);
+    x=a[up][*p-1];
+    for(i=0;i<4;i++)
+    {
+        for(j=0;j<4;j++)
+        {
+            if((i==up)&&(j==*p-1))
+                printf("%c\t",ch);
+            else
+            {
+                if(i==up&&j==*p)
+                    printf("%d\t",x);
+                else
+                    printf("%d\t",a[i][j]);
+
+            }
+        }
+        printf("\n");
+
+    }
+    a[up][*p-1]=ch;
+        a[up][*p]=x;
+        *p=*p-1;
+          for(i=0;i<4;i++)
+            {
+                for(j=0;j<4;j++)
+              {
+                if(a[i][j]==count)
+                    count++;else
+                    break;
+               }
+               if(a[i][j]!=count)
+                break;
+            }
+            if(count==16)
+            {
+                printf("\n   congras You win");
+                exit(0);
+            }
+    }else
+    printf("Number of move you have=%d\n",z);
+}
+void odd(int a[][4],char ch,int up,int *p,int z)
+{
+
+    if(*p+1<4){
+          system("cls");
+    int i,x,j,count=1;
+ printf("Number of move you have=%d\n",z);
+    x=a[up][*p+1];
+    for(i=0;i<4;i++)
+    {
+        for(j=0;j<4;j++)
+        {
+            if((i==up)&&(j==*p+1))
+                printf("%c\t",ch);
+            else
+            {
+                if(i==up&&j==*p)
+                    printf("%d\t",x);
+                else
+                    printf("%d\t",a[i][j]);
+
+            }
+        }
+        printf("\n");
+
+    }
+    a[up][*p+1]=ch;
+        a[up][*p]=x;
+        *p=*p+1;
+          for(i=0;i<4;i++)
+            {
+                for(j=0;j<4;j++)
+              {
+                if(a[i][j]==count)
+                    count++;else
+                    break;
+               }
+               if(a[i][j]!=count)
+                break;
+            }
+            if(count==16)
+            {
+                printf("\n   congras You win");
+                exit(0);
+            }
+}
+}
